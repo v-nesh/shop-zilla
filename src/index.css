@@ -424,10 +424,10 @@ a {
   font-size: 1.4rem;
   color: var(--dark-blue);
   text-decoration: none;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
 }
 
 a:hover {
   color: var(--color-dark);
-  font-size: 1.5rem;
+  font-size: 1.41rem;
 }

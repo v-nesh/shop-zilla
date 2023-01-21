@@ -1,8 +1,28 @@
 import React from "react";
-import style from "./Admin.module.scss";
+import styles from "./Admin.module.scss";
+import Navbar from "./../../components/admin/navBar/Navbar";
+import { Route, Routes } from "react-router-dom";
+import Home from "./../home/Home";
+import ViewProducts from "./../../components/admin/ViewProducts/ViewProducts";
+import AddProduct from "./../../components/admin/addProduct/AddProduct";
+import Orders from "./../../components/admin/orders/Orders";
 
 const Admin = () => {
-  return <div>Admin</div>;
+  return (
+    <div className={styles.admin}>
+      <div className={styles.navbar}>
+        <Navbar />
+      </div>
+      <div className={styles.content}>
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/all-products" element={<ViewProducts />} />
+          <Route path="/add-products" element={<AddProduct />} />
+          <Route path="/orders" element={<Orders />} />
+        </Routes>
+      </div>
+    </div>
+  );
 };
 
 export default Admin;

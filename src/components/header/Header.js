@@ -10,6 +10,8 @@ import { useDispatch } from "react-redux";
 import { SET_ACTIVE_USER } from "../../redux/slice/authSlice";
 import { REMOVE_ACTIVE_USER } from "../../redux/slice/authSlice";
 import ShowOnLogIn, { ShowOnLogOut } from "../hiddenLink/hiddenLink";
+import AdminOnlyRoute from "../adminOnlyRoute/AdminOnlyRoute";
+import { AdminOnlyLink } from "./../adminOnlyRoute/AdminOnlyRoute";
 
 const logo = (
   <div className={styles.logo}>
@@ -112,6 +114,13 @@ const Header = () => {
             <li className={styles["logo-mobile"]}>
               {logo}
               <FaTimes size={14} color="#f3f3f3" onClick={hideMenu} />
+            </li>
+            <li>
+              <AdminOnlyLink>
+                <Link to="/admin/home">
+                  <button className="--btn --btn-primary">Admin</button>
+                </Link>
+              </AdminOnlyLink>
             </li>
             <li>
               <NavLink to="/" className={activeLink}>

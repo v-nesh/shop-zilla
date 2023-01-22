@@ -6,6 +6,7 @@ import { Home, Contact, Login, Register, Reset, Admin } from "./pages";
 //component
 import { Header, Footer } from "./components";
 import AdminOnlyRoute from "./components/adminOnlyRoute/AdminOnlyRoute";
+import ProductDetails from "./components/products/productDetails/ProductDetails";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
               </AdminOnlyRoute>
             }
           />
+          <Route path="/product-details/:id" element={<ProductDetails />} />
         </Routes>
         <Footer />
       </BrowserRouter>

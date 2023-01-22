@@ -96,6 +96,7 @@ const AddProduct = () => {
         desc: product.desc,
         createdAt: Timestamp.now().toDate(),
       });
+      console.log(docRef);
       setIsLoading(false);
       toast.success("Product Uploaded Successfully");
       setuploadProgress(0);

@@ -13,7 +13,7 @@ const ProductItem = ({ product, grid, id, name, price, desc, imageURL }) => {
 
   return (
     <Card cardClass={grid ? `${styles.grid}` : `${styles.list}`}>
-      <Link to={`/product-details`}>
+      <Link to={`/product-details/${id}`}>
         <div className={styles.img}>
           <img src={imageURL} alt={name} />
         </div>
@@ -23,6 +23,9 @@ const ProductItem = ({ product, grid, id, name, price, desc, imageURL }) => {
           <p>{`$${price}`}</p>
           <h4>{shortenText(name, 18)}</h4>
         </div>
+        {!grid && <p className={styles.desc}>{shortenText(desc, 100)}</p>}
+
+        <button className="--btn --btn-primary">Add to Cart</button>
       </div>
     </Card>
   );

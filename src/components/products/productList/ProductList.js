@@ -1,15 +1,34 @@
 import styles from "./ProductList.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BsFillGridFill } from "react-icons/bs";
 import { FaListAlt } from "react-icons/fa";
 import Search from "./../../search/Search";
 import ProductItem from "./../productItem/ProductItem";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  FILTER_BY_SEARCH,
+  selectFilterProducts,
+  SORT_PRODUCT,
+} from "../../../redux/slice/filterSlice";
 
 ///
 ///
 const ProductList = ({ products }) => {
   const [grid, setGrid] = useState(true);
   const [search, setSearch] = useState("");
+  const [sort, setSort] = useState("latest");
+  const filterdProduct = useSelector(selectFilterProducts);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(SORT_PRODUCT({ products, sort }));
+  }, [dispatch, products, sort]);
+
+  useEffect(() => {
+    dispatch(FILTER_BY_SEARCH({ products, search }));
+  }, [dispatch, products, search]);
+
   return (
     <div className={styles["product-list"]} id="product">
       <div className={styles.top}>
@@ -17,7 +36,7 @@ const ProductList = ({ products }) => {
           <BsFillGridFill size={22} color="red" onClick={() => setGrid(true)} />
           <FaListAlt size={22} color="blue" onClick={() => setGrid(false)} />
           <p>
-            <b>10 Products Found</b>
+            <b>{filterdProduct.length} Products Found</b>
           </p>
         </div>
         <div>
@@ -25,7 +44,7 @@ const ProductList = ({ products }) => {
         </div>
         <div className={styles.sort}>
           <label>Sort by</label>
-          <select>
+          <select value={sort} onChange={(e) => setSort(e.target.value)}>
             <option value="latest">Latest</option>
             <option value="lowest-price">Lowest price</option>
             <option value="highest-price">Highest Price</option>
@@ -35,11 +54,11 @@ const ProductList = ({ products }) => {
         </div>
       </div>
       <div className={grid ? `${styles.grid} ` : `${styles.list}`}>
-        {products.length === 0 ? (
+        {filterdProduct.length === 0 ? (
           <p>No product found</p>
         ) : (
           <>
-            {products.map((product) => {
+            {filterdProduct.map((product) => {
               return (
                 <div key={product.id}>
                   <ProductItem {...product} grid={grid} products={product} />

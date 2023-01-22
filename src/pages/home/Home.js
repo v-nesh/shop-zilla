@@ -1,12 +1,13 @@
 import React from "react";
-import AdminOnlyRoute from "../../components/adminOnlyRoute/AdminOnlyRoute";
+// import AdminOnlyRoute from "../../components/adminOnlyRoute/AdminOnlyRoute";
+import Product from "../../components/products/Product";
 // import Slider from "../../components/slider/Slider";
 
 const Home = () => {
   return (
     <div>
       {/* <Slider /> */}
-      <h1>Home</h1>
+      <Product />
       {/* <AdminOnlyRoute /> */}
     </div>
   );

@@ -20,7 +20,10 @@ const productSlice = createSlice({
         const price = product.price;
         return array.push(price);
       });
-      
+      const max = Math.max(...array);
+      const min = Math.min(...array);
+      state.maxPrice = max;
+      state.minPrice = min;
     },
   },
 });
@@ -28,7 +31,7 @@ const productSlice = createSlice({
 export const { STORE_PRODUCTS, GET_PRICE_RANGE } = productSlice.actions;
 
 export const selectProducts = (state) => state.product.products;
-export const minPrice = (state) => state.product.minPrice;
-export const maxPrice = (state) => state.product.maxPrice;
+export const selectMinPrice = (state) => state.product.minPrice;
+export const selectMaxPrice = (state) => state.product.maxPrice;
 
 export default productSlice.reducer;

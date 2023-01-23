@@ -7,6 +7,9 @@ import { Home, Contact, Login, Register, Reset, Admin } from "./pages";
 import { Header, Footer } from "./components";
 import AdminOnlyRoute from "./components/adminOnlyRoute/AdminOnlyRoute";
 import ProductDetails from "./components/products/productDetails/ProductDetails";
+import Cart from "./pages/cart/Cart";
+import CheckoutDetail from "./pages/checkout/CheckoutDetail";
+import Checkout from "./pages/checkout/Checkout";
 
 function App() {
   return (
@@ -30,6 +33,9 @@ function App() {
             }
           />
           <Route path="/product-details/:id" element={<ProductDetails />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout-details" element={<CheckoutDetail />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
         <Footer />
       </BrowserRouter>

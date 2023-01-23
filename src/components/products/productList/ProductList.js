@@ -10,6 +10,7 @@ import {
   selectFilterProducts,
   SORT_PRODUCT,
 } from "../../../redux/slice/filterSlice";
+import Pagination from "../../pagination/Pagination";
 
 ///
 ///
@@ -17,8 +18,20 @@ const ProductList = ({ products }) => {
   const [grid, setGrid] = useState(true);
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("latest");
-  const filterdProduct = useSelector(selectFilterProducts);
+  const filterdProducts = useSelector(selectFilterProducts);
 
+  //pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage, setProductsPerPage] = useState(8);
+  //get Current Product Page
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = filterdProducts.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+
+  //dispatch
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,7 +49,7 @@ const ProductList = ({ products }) => {
           <BsFillGridFill size={22} color="red" onClick={() => setGrid(true)} />
           <FaListAlt size={22} color="blue" onClick={() => setGrid(false)} />
           <p>
-            <b>{filterdProduct.length} Products Found</b>
+            <b>{filterdProducts.length} Products Found</b>
           </p>
         </div>
         <div>
@@ -54,20 +67,26 @@ const ProductList = ({ products }) => {
         </div>
       </div>
       <div className={grid ? `${styles.grid} ` : `${styles.list}`}>
-        {filterdProduct.length === 0 ? (
+        {filterdProducts.length === 0 ? (
           <p>No product found</p>
         ) : (
           <>
-            {filterdProduct.map((product) => {
+            {currentProducts.map((product) => {
               return (
                 <div key={product.id}>
-                  <ProductItem {...product} grid={grid} products={product} />
+                  <ProductItem {...product} grid={grid} product={product} />
                 </div>
               );
             })}
           </>
         )}
       </div>
+      <Pagination
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        productsPerPage={productsPerPage}
+        totalProducts={filterdProducts.length}
+      />
     </div>
   );
 };

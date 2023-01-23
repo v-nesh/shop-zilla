@@ -14,6 +14,8 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "./../../components/loader/Loader";
+import { useSelector } from "react-redux";
+import { selectpreviousURL } from "./../../redux/slice/cartSlice";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -21,6 +23,15 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState("");
 
   const navigate = useNavigate();
+  const previousURL = useSelector(selectpreviousURL);
+  //
+  const redirectUser = () => {
+    if (previousURL.includes("cart")) {
+      return navigate("/cart");
+    } else {
+      navigate("/");
+    }
+  };
 
   const loginUser = (e) => {
     e.preventDefault();
@@ -31,7 +42,7 @@ const Login = () => {
         // console.log(user);
         setIsLoading(false);
         toast.success("Login Successfully");
-        navigate("/");
+        redirectUser();
         // ...
       })
       .catch((error) => {
@@ -47,7 +58,7 @@ const Login = () => {
       .then((result) => {
         // const user = result.user;
         toast.success("Login Successfully");
-        navigate("/");
+        redirectUser();
       })
       .catch((error) => {
         toast.error(error.message);

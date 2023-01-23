@@ -9,12 +9,14 @@ import {
   GET_PRICE_RANGE,
 } from "../../redux/slice/productSlice";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import SpiningImage from "../../assets/loading-circle.gif";
+import { FaCogs } from "react-icons/fa";
 
 const Product = () => {
   const { data, isLoading } = useFetchCollection("products");
   const products = useSelector(selectProducts);
+  const [showFilter, setShowFilter] = useState(false);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -26,10 +28,18 @@ const Product = () => {
     dispatch(GET_PRICE_RANGE({ products: data }));
   }, [data, dispatch]);
 
+  const toggleFilter = () => {
+    setShowFilter(!showFilter);
+  };
+
   return (
     <section>
       <div className={`container ${styles.product}`}>
-        <aside className={styles.filter}>
+        <aside
+          className={
+            showFilter ? `${styles.filter} ${styles.show}` : `${styles.filter}`
+          }
+        >
           {isLoading ? null : <ProductFilter />}
         </aside>
         <div className={styles.content}>
@@ -43,6 +53,12 @@ const Product = () => {
           ) : (
             <ProductList products={products} />
           )}
+          <div className={styles.icon} onClick={toggleFilter}>
+            <FaCogs size={20} color="red" />
+            <p>
+              <b>{showFilter ? "Hide Filter" : "Show Filter"}</b>
+            </p>
+          </div>
         </div>
       </div>
     </section>

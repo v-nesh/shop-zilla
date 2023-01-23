@@ -6,7 +6,12 @@ import { useEffect, useState } from "react";
 import {
   FILTER_BY_CATEGORY,
   FILTER_BY_BRAND,
+  FILTER_BY_PRICE,
 } from "../../../redux/slice/filterSlice";
+import {
+  selectMinPrice,
+  selectMaxPrice,
+} from "./../../../redux/slice/productSlice";
 
 //
 //
@@ -15,6 +20,9 @@ const ProductFilter = () => {
 
   const [category, setCategory] = useState("ALL");
   const [brand, setBrand] = useState("ALL");
+  const [price, setPrice] = useState(3000);
+  const minPrice = useSelector(selectMinPrice);
+  const maxPrice = useSelector(selectMaxPrice);
 
   const products = useSelector(selectProducts);
   const allCategories = [
@@ -34,6 +42,16 @@ const ProductFilter = () => {
   const filteredProducts = (cat) => {
     setCategory(cat);
     dispatch(FILTER_BY_CATEGORY({ products, category: cat }));
+  };
+
+  useEffect(() => {
+    dispatch(FILTER_BY_PRICE({ products, price }));
+  }, [dispatch, products, price]);
+
+  const clearFilters = () => {
+    setCategory("ALL");
+    setBrand("ALL");
+    setPrice(maxPrice);
   };
 
   return (
@@ -65,12 +83,20 @@ const ProductFilter = () => {
           })}
         </select>
         <h4>Price</h4>
-        <p>1500</p>
+        <p>{`${price}`}</p>
         <div className={styles.price}>
-          <input type="range" name="price" min="100" max="1000" />
+          <input
+            type="range"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            min={minPrice}
+            max={maxPrice}
+          />
         </div>
         <br />
-        <button className="--btn --btn-danger">clear filter</button>
+        <button className="--btn --btn-danger" onClick={clearFilters}>
+          Clear filter
+        </button>
       </div>
     </div>
   );

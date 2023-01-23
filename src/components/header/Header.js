@@ -6,12 +6,14 @@ import styles from "./Header.module.scss";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../../firebase/config";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SET_ACTIVE_USER } from "../../redux/slice/authSlice";
 import { REMOVE_ACTIVE_USER } from "../../redux/slice/authSlice";
 import ShowOnLogIn, { ShowOnLogOut } from "../hiddenLink/hiddenLink";
 import AdminOnlyRoute from "../adminOnlyRoute/AdminOnlyRoute";
 import { AdminOnlyLink } from "./../adminOnlyRoute/AdminOnlyRoute";
+import { CALACULATE_TOTAL_QUANTITY } from "../../redux/slice/cartSlice";
+import { selectCartTotalQuantity } from "./../../redux/slice/cartSlice";
 
 const logo = (
   <div className={styles.logo}>
@@ -23,16 +25,6 @@ const logo = (
   </div>
 );
 
-const cart = (
-  <span className={styles.cart}>
-    <Link to="/cart">
-      Cart &nbsp;
-      <FaOpencart size={20} />
-      <p>5</p>
-    </Link>
-  </span>
-);
-
 const activeLink = ({ isActive }) => (isActive ? `${styles.active}` : "");
 
 const Header = () => {
@@ -42,8 +34,25 @@ const Header = () => {
 
   const [showMenu, setShowMenu] = useState(false);
   const [displayName, setDisplayName] = useState("");
+  const [scrollPage, setScrollPage] = useState(false);
+  const cartTotalQuantity = useSelector(selectCartTotalQuantity);
+
+  //
+  useEffect(() => {
+    dispatch(CALACULATE_TOTAL_QUANTITY);
+  }, []);
 
   const navigate = useNavigate();
+
+  const fixNavbar = () => {
+    if (window.scrollY > 50) {
+      setScrollPage(true);
+    } else {
+      setScrollPage(false);
+    }
+  };
+
+  window.addEventListener("scroll", fixNavbar);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -90,8 +99,18 @@ const Header = () => {
     });
   }, [dispatch, displayName]);
 
+  const cart = (
+    <span className={styles.cart}>
+      <Link to="/cart">
+        Cart &nbsp;
+        <FaOpencart size={20} />
+        <p>{cartTotalQuantity}</p>
+      </Link>
+    </span>
+  );
+
   return (
-    <header>
+    <header className={scrollPage ? `${styles.fixed}` : null}>
       <div className={styles.header}>
         {/* Logo */}
         {logo}

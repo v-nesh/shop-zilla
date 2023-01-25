@@ -2,7 +2,11 @@ import React from 'react'
 
 const CheckoutSuccess = () => {
   return (
-    <div>CheckoutSuccess</div>
+    <div>
+      <h1>
+      CheckoutSuccess
+      </h1>
+    </div>
   )
 }
 

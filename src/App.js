@@ -10,6 +10,7 @@ import ProductDetails from "./components/products/productDetails/ProductDetails"
 import Cart from "./pages/cart/Cart";
 import CheckoutDetail from "./pages/checkout/CheckoutDetail";
 import Checkout from "./pages/checkout/Checkout";
+import CheckoutSuccess from "./pages/checkout/CheckoutSuccess";
 
 function App() {
   return (
@@ -36,6 +37,8 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout-details" element={<CheckoutDetail />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/checkout-success" element={<CheckoutSuccess />} />
+          {/* <Route path="/order-history" element={<CheckoutSuccess />} /> */}
         </Routes>
         <Footer />
       </BrowserRouter>

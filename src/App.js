@@ -11,6 +11,9 @@ import Cart from "./pages/cart/Cart";
 import CheckoutDetail from "./pages/checkout/CheckoutDetail";
 import Checkout from "./pages/checkout/Checkout";
 import CheckoutSuccess from "./pages/checkout/CheckoutSuccess";
+import OrderHistory from "./pages/orderHistory/OrderHistory";
+import OrderDetail from "./pages/orderDetails/OrderDetail";
+import ReviewProducts from './components/reviewProducts/ReviewProducts';
 
 function App() {
   return (
@@ -38,7 +41,9 @@ function App() {
           <Route path="/checkout-details" element={<CheckoutDetail />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/checkout-success" element={<CheckoutSuccess />} />
-          {/* <Route path="/order-history" element={<CheckoutSuccess />} /> */}
+          <Route path="/order-history" element={<OrderHistory />} />
+          <Route path="/order-details/:id" element={<OrderDetail />} />
+          <Route path="/review-products/:id" element={<ReviewProducts />} />
         </Routes>
         <Footer />
       </BrowserRouter>

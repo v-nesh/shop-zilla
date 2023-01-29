@@ -13,6 +13,10 @@ import {
   DECREASE_CART,
   selectCartItems,
 } from "../../../redux/slice/cartSlice";
+import useFetchDocument from "./../../../customHooks/useFetchDocument";
+import useFetchCollection from "../../../customHooks/useFetchCollection";
+import Card from "./../../card/Card";
+import StarsRating from "react-star-rate";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -25,26 +29,13 @@ const ProductDetails = () => {
   const isCartAdded = cartItem.findIndex((cart) => {
     return cart.id === id;
   });
-
-  const getProduct = async () => {
-    const docRef = doc(db, "products", id);
-    const docSnap = await getDoc(docRef);
-    //
-    if (docSnap.exists()) {
-      // console.log("Document Dat:", docSnap.data());
-      const obj = {
-        id: id,
-        ...docSnap.data(),
-      };
-      setProduct(obj);
-    } else {
-      toast.error("Something wrong or Product not found");
-    }
-  };
+  const { document } = useFetchDocument("products", id);
+  const { data } = useFetchCollection("reviews", id);
+  const filteredReviews = data.filter((item) => item.productID === id);
 
   useEffect(() => {
-    getProduct();
-  }, []);
+    setProduct(document);
+  }, [document]);
 
   const addToCart = (product) => {
     dispatch(ADD_TO_CART(product));
@@ -110,6 +101,33 @@ const ProductDetails = () => {
             </div>
           </>
         )}
+        <Card cardClass={styles.card}>
+          <h3>Product Review</h3>
+          <div>
+            {filteredReviews.length === 0 ? (
+              <p>No review for this product yet</p>
+            ) : (
+              <>
+                {filteredReviews.map((item, index) => {
+                  const { rate, review, reviewDate, userName } = item;
+                  return (
+                    <div className={styles.review} key={index}>
+                      <StarsRating value={rate} />
+                      <p>{review}</p>
+                      <span>
+                        <b>{reviewDate}</b>
+                      </span>
+                      <br />
+                      <span>
+                        <b>by {userName}</b>
+                      </span>
+                    </div>
+                  );
+                })}
+              </>
+            )}
+          </div>
+        </Card>
       </div>
     </section>
   );

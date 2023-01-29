@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Admin.module.scss";
 import Navbar from "./../../components/admin/navBar/Navbar";
 import { Route, Routes } from "react-router-dom";
-import Home from "./../home/Home";
+import Home from "../../components/admin/home/Home";
 import ViewProducts from "./../../components/admin/ViewProducts/ViewProducts";
 import AddProduct from "./../../components/admin/addProduct/AddProduct";
 import Orders from "./../../components/admin/orders/Orders";

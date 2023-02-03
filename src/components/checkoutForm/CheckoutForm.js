@@ -112,7 +112,7 @@ const CheckoutForm = () => {
           }
         }
       });
-
+    console.log(confirmPayment);
     setIsLoading(false);
   };
 

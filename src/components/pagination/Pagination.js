@@ -11,7 +11,7 @@ const Pagination = ({
   const pageNumbers = [];
   const totalPages = totalProducts / productsPerPage;
   //limit Page numbes
-  const [pageNumberLimit, setPageNumberLimit] = useState(5);
+  const [pageNumberLimit] = useState(5);
   const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(5);
   const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
   for (let i = 1; i <= Math.ceil(totalProducts / productsPerPage); i++) {
@@ -52,6 +52,7 @@ const Pagination = ({
       >
         prev
       </li>
+
       {pageNumbers.map((number) => {
         if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
           return (
@@ -65,6 +66,7 @@ const Pagination = ({
           );
         }
       })}
+
       <li
         onClick={paginateNext}
         className={

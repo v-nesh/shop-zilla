@@ -1,8 +1,6 @@
-import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { db } from "../../../firebase/config";
-import { toast } from "react-toastify";
+
 import spinImg from "../../../assets/loading-circle.gif";
 import styles from "./ProductDetails.module.scss";
 import { useDispatch } from "react-redux";

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./ReviewProducts.module.scss";
 import { useSelector } from "react-redux";
-import { selectProducts } from "../../redux/slice/productSlice";
+
 import { selectUserID, selectUserName } from "./../../redux/slice/authSlice";
 import { useParams } from "react-router-dom";
 import Card from "../card/Card";

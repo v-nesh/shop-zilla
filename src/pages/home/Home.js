@@ -18,7 +18,7 @@ const Home = () => {
 
   return (
     <div>
-      {/* <Slider /> */}
+      <Slider />
       <Product />
       {/* <AdminOnlyRoute /> */}
     </div>

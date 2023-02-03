@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { SET_ACTIVE_USER } from "../../redux/slice/authSlice";
 import { REMOVE_ACTIVE_USER } from "../../redux/slice/authSlice";
 import ShowOnLogIn, { ShowOnLogOut } from "../hiddenLink/hiddenLink";
-import AdminOnlyRoute from "../adminOnlyRoute/AdminOnlyRoute";
+// import AdminOnlyRoute from "../adminOnlyRoute/AdminOnlyRoute";
 import { AdminOnlyLink } from "./../adminOnlyRoute/AdminOnlyRoute";
 import { CALACULATE_TOTAL_QUANTITY } from "../../redux/slice/cartSlice";
 import { selectCartTotalQuantity } from "./../../redux/slice/cartSlice";
@@ -40,7 +40,7 @@ const Header = () => {
   //
   useEffect(() => {
     dispatch(CALACULATE_TOTAL_QUANTITY);
-  }, []);
+  }, [dispatch]);
 
   const navigate = useNavigate();
 

@@ -14,7 +14,7 @@ const OrderHistory = () => {
   const userID = useSelector(selectUserID);
 
   const dispatch = useDispatch();
-  const orderHistory = useSelector(selectOrderHistory);
+  // const orderHistory = useSelector(selectOrderHistory);
 
   useEffect(() => {
     dispatch(STORE_ORDERS(data));
